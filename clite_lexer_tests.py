@@ -18,12 +18,12 @@ class TestIntegers(unittest.TestCase):
         self.assertEqual(token.type, 'INT')
         self.assertEqual(token.value, 1934)
 
-    # def test_wrong_integers(self):
-    #     self.lexer.input('1__934')
-    #     token = self.lexer.token()
-    #     self.assertEqual(token.type, 'INT')
-    #     self.assertNotEqual(token.value, 1934)
-    #     self.assertRaises(lex.LexError, self.lexer.token)
+    def test_wrong_integers(self):
+        self.lexer.input('1__934')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'INT')
+        self.assertNotEqual(token.value, 1934)
+        self.assertRaises(lex.LexError, self.lexer.token)
 
 if __name__ == '__main__':
     unittest.main(TestIntegers())
