@@ -11,7 +11,9 @@ t_ignore  = ' \t'
 int_regex = r'([0-9]+(\_[0-9]+)*)'
 sci_regex = r'(e|E)(\-|\+)?' + int_regex 
 float_regex = r'((' + int_regex + r'?\.' + int_regex + r'?' +  sci_regex + r')|(' + int_regex + sci_regex + r')|(' + int_regex + r'?\.' + int_regex + r'?))'
-str_regex = r'(\'.*\')'
+single_quote = r'(\'.*\')'
+double_quote = r'(\".*\")'
+str_regex = r'(' + single_quote +  r'|' + double_quote  + r')'
 
 @TOKEN(str_regex)
 def t_STR(token):
