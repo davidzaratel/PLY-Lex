@@ -70,6 +70,26 @@ class TestFloats(unittest.TestCase):
         self.lexer.token()
         self.assertRaises(lex.LexError, self.lexer.token)
 
+
+class TestStrings(unittest.TestCase):
+    def setUp(self):
+        self.lexer = clite.getLexer()
+
+    def test_basic_strings(self):
+        self.lexer.input("'Le petit prince'")
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'STR')
+        self.assertEqual(token.value, "'Le petit prince'")
+
+    # def test_basic_strings(self):
+    #     self.lexer.input('"Hola \"%s\""')
+    #     token = self.lexer.token()
+    #     self.assertEqual(token.type, 'STR')
+    #     self.assertEqual(token.value, '"Hola \"%s\""')
+
 if __name__ == '__main__':
-    # unittest.main(TestIntegers())
-    unittest.main(TestFloats())
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestIntegers))
+    suite.addTest(unittest.makeSuite(TestFloats))
+    suite.addTest(unittest.makeSuite(TestStrings))
+    unittest.TextTestRunner().run(suite)

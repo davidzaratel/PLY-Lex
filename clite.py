@@ -2,7 +2,8 @@ import ply.lex as lex
 from ply.lex import TOKEN
 
 tokens = [ 'INT', 
-            'FLOAT'
+            'FLOAT',
+            'STR'
          ]
 
 
@@ -10,6 +11,11 @@ t_ignore  = ' \t'
 int_regex = r'([0-9]+(\_[0-9]+)*)'
 sci_regex = r'(e|E)(\-|\+)?' + int_regex 
 float_regex = r'((' + int_regex + r'?\.' + int_regex + r'?' +  sci_regex + r')|(' + int_regex + sci_regex + r')|(' + int_regex + r'?\.' + int_regex + r'?))'
+str_regex = r'(\'.*\')'
+
+@TOKEN(str_regex)
+def t_STR(token):
+    return token
 
 @TOKEN(float_regex)
 def t_FLOAT(token):
