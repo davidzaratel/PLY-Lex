@@ -36,12 +36,12 @@ class TestFloats(unittest.TestCase):
             self.assertAlmostEqual(token.value, value)
             self.assertEqual(token.type, 'FLOAT')
 
-    # def test_basic_decimal_floats_sci_notation(self):
-    #     self.lexer.input('1.e+0 6.67428e-11 1E6 .12345E+5')
-    #     for value in [1.0, 6.67428e-11, 1e6, 0.12345E+5]:
-    #         token = self.lexer.token()
-    #         self.assertAlmostEqual(token.value, value)
-    #         self.assertEqual(token.type, 'FLOAT')
+    def test_basic_decimal_floats_sci_notation(self):
+        self.lexer.input('1.e+0 6.67428e-11 1E6 .12345E+5')
+        for value in [1.0, 6.67428e-11, 1e6, 0.12345E+5]:
+            token = self.lexer.token()
+            self.assertAlmostEqual(token.value, value)
+            self.assertEqual(token.type, 'FLOAT')
     
     # def test_decimal_underscored_floats(self):
     #     self.lexer.input('1_5. 0.15e+0_2')
