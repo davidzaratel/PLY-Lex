@@ -43,32 +43,32 @@ class TestFloats(unittest.TestCase):
             self.assertAlmostEqual(token.value, value)
             self.assertEqual(token.type, 'FLOAT')
     
-    # def test_decimal_underscored_floats(self):
-    #     self.lexer.input('1_5. 0.15e+0_2')
-    #     for value in [15.0, 15.0]:
-    #         token = self.lexer.token()
-    #         self.assertAlmostEqual(token.value, value)
-    #         self.assertEqual(token.type, 'FLOAT')
+    def test_decimal_underscored_floats(self):
+        self.lexer.input('1_5. 0.15e+0_2')
+        for value in [15.0, 15.0]:
+            token = self.lexer.token()
+            self.assertAlmostEqual(token.value, value)
+            self.assertEqual(token.type, 'FLOAT')
 
-    # def test_wrong_floats_1(self):
-    #     self.lexer.input('1_.5')
-    #     self.lexer.token()  # consumes "1"
-    #     self.assertRaises(lex.LexError, self.lexer.token)
+    def test_wrong_floats_1(self):
+        self.lexer.input('1_.5')
+        self.lexer.token()  # consumes "1"
+        self.assertRaises(lex.LexError, self.lexer.token)
 
-    # def test_wrong_floats_2(self):
-    #     self.lexer.input('1._5')
-    #     self.lexer.token()  # consumes "1."
-    #     self.assertRaises(lex.LexError, self.lexer.token)
+    def test_wrong_floats_2(self):
+        self.lexer.input('1._5')
+        self.lexer.token()  # consumes "1."
+        self.assertRaises(lex.LexError, self.lexer.token)
 
-    # def test_wrong_floats_3(self):
-    #     self.lexer.input('1.5_e1')
-    #     self.lexer.token()  # consumes "1.5"
-    #     self.assertRaises(lex.LexError, self.lexer.token)
+    def test_wrong_floats_3(self):
+        self.lexer.input('1.5_e1')
+        self.lexer.token()  # consumes "1.5"
+        self.assertRaises(lex.LexError, self.lexer.token)
 
-    # def test_wrong_floats_4(self):
-    #     self.lexer.input('1.5e_1')
-    #     self.lexer.token()
-    #     self.assertRaises(lex.LexError, self.lexer.token)
+    def test_wrong_floats_4(self):
+        self.lexer.input('1.5e_1')
+        self.lexer.token()
+        self.assertRaises(lex.LexError, self.lexer.token)
 
 if __name__ == '__main__':
     # unittest.main(TestIntegers())
