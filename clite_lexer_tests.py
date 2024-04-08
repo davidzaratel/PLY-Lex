@@ -12,11 +12,11 @@ class TestIntegers(unittest.TestCase):
         self.assertEqual(token.type, 'INT')
         self.assertEqual(token.value, 1934)
 
-    # def test_underscored_integers(self):
-    #     self.lexer.input('1_9_3_4')
-    #     token = self.lexer.token()
-    #     self.assertEqual(token.type, 'INT')
-    #     self.assertEqual(token.value, 1934)
+    def test_underscored_integers(self):
+        self.lexer.input('1_9_3_4')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'INT')
+        self.assertEqual(token.value, 1934)
 
     # def test_wrong_integers(self):
     #     self.lexer.input('1__934')
