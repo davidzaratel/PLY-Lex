@@ -17,13 +17,14 @@ str_regex = r'(' + single_quote +  r'|' + double_quote  + r')'
 # declaring str states
 states = (
    ('strSingle','exclusive'),
+   ('strDouble', 'exclusive')
 )
 
-# enters the single quote string state
+# ------------------- enters the single quote string state -----------------
 def t_begin_strSingle(token):
     r'\''
     token.lexer.begin('strSingle')
-    token.lexer.str_buf = ''
+    token.lexer.str_buf = "'"
 
 # reads the escaping characters
 def t_strSingle_escape(token):
@@ -39,7 +40,7 @@ def t_strSingle_content(token):
 def t_strSingle_end(token):
     r'\''
     token.lexer.begin('INITIAL')  # Return to the initial state
-    token.value = token.lexer.str_buf
+    token.value = token.lexer.str_buf + token.value
     token.type = "STR"
     return token
 
@@ -49,10 +50,47 @@ def t_strSingle_error(token):
 
 t_strSingle_ignore = ''
 
+
+# ------------------- enters the double quote string state -----------------
+def t_begin_strDouble(token):
+    r'\"'
+    token.lexer.begin('strDouble')
+    token.lexer.str_buf = '"'
+
+# reads the escaping characters
+def t_strDouble_escape(token):
+    r'(\\\")'
+    print("escape")
+    token.lexer.str_buf += token.value
+
+# reads the 'normal' characters inside the string
+def t_strDouble_content(token):
+    r'[^\"]'
+    token.lexer.str_buf += token.value
+
+# ends the strDouble state
+def t_strDouble_end(token):
+    r'\"'
+    token.lexer.begin('INITIAL')  # Return to the initial state
+    token.value = token.lexer.str_buf + token.value
+    token.type = "STR"
+    return token
+
+def t_strDouble_error(token):
+    print("Illegal character", token.value)
+    token.lexer.skip(1)
+
+t_strDouble_ignore = ''
+
+
+# ------------------- floats -----------------
 @TOKEN(float_regex)
 def t_FLOAT(token):
     token.value = float(token.value)
     return token
+
+
+# ------------------- ints -----------------
 
 @TOKEN(int_regex)
 def t_INT(token):
